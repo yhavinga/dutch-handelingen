@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Downloads and generated datasets (large; may be a symlink to another disk)
+/data

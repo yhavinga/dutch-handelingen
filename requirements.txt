@@ -1,0 +1,6 @@
+aiohttp>=3.8.0
+aiofiles>=23.0.0
+certifi
+tqdm>=4.60.0
+datasets>=3.0.0
+huggingface_hub>=0.30.0
