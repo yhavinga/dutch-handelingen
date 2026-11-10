@@ -97,12 +97,22 @@ def block_text(element: ET.Element, skip_tags: tuple = ()) -> str:
         if is_line:
             flush()
         if el.text:
-            buf.append(el.text)
+            # Sub/superscripts set flush against the previous word belong to it: CO<inf>2</inf>,
+            # m<sup>3</sup>, 3<sup>e</sup>
+            if el.tag in ('inf', 'sup') and buf and buf[-1] and not buf[-1][-1].isspace():
+                buf[-1] += el.text
+            else:
+                buf.append(el.text)
         for child in el:
             if child.tag not in skip_tags:
                 walk(child)
             if child.tail:
-                buf.append(child.tail)
+                # A tail that starts right at the closing tag with '-' or '/' continues the word
+                # ('<vetnr>24400</vetnr>-VII', 'woon</nadruk>- en'), so no space may be inserted
+                if buf and child.tail[0] in '-/':
+                    buf[-1] += child.tail
+                else:
+                    buf.append(child.tail)
         if is_line:
             flush()
 

@@ -708,12 +708,10 @@ async def download_all(
 
 
 def create_ssl_context():
-    """Create SSL context that works with repository.overheid.nl."""
-    # The government site has certificate chain issues, so we need to be permissive
-    ssl_context = ssl.create_default_context()
-    ssl_context.check_hostname = False
-    ssl_context.verify_mode = ssl.CERT_NONE
-    return ssl_context
+    """Create a verifying SSL context for repository.overheid.nl."""
+    # certifi's CA bundle instead of the system store: the chain did not verify against some
+    # system stores in the past; verification is no longer switched off.
+    return ssl.create_default_context(cafile=certifi.where())
 
 
 async def main():
