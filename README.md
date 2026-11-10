@@ -55,3 +55,7 @@ download to fetch them.
 archive (~377k documents). This part is not complete and not published; most of it is already
 included in the `officiele-bekendmakingen` subset of the
 [GPT-NL Public Corpus](https://huggingface.co/datasets/GPT-NL/GPT-NL_Public_Corpus).
+
+## License
+
+The code is released under the [MIT License](LICENSE). The published dataset is CC0 1.0.
